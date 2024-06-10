@@ -20,13 +20,13 @@ const emojis = [
 ];
 
 // buttons
-const btnEasy = document.querySelector('.btn easy-level');
-const btnMedium = document.querySelector('.btn medium-level');
-const btnHard = document.querySelector('.btn hard-level');
+const btnEasy = document.querySelector(".btn easy-level");
+const btnMedium = document.querySelector(".btn medium-level");
+const btnHard = document.querySelector(".btn hard-level");
 
-const container = document.querySelector('.container')
-const cards = document.querySelector('.cards');
-const cardsPicksList = [...emojis, ...emojis]
+const container = document.querySelector(".container");
+const cards = document.querySelector(".cards");
+const cardsPicksList = [...emojis, ...emojis];
 const cardsCount = cardsPicksList.length;
 //console.log(cardsCount)
 
@@ -36,33 +36,64 @@ let revealedCards = 0;
 let awaitngEndOfMove = false;
 
 const buildCard = (emoji) => {
-  const cardElement = document.createElement('div');
-  cardElement.classList.add('card');
-  cardElement.setAttribute('data-emoji', emoji)
+  const cardElement = document.createElement("div");
+  cardElement.classList.add("card");
+  cardElement.setAttribute("data-emoji", emoji);
+  cardElement.setAttribute("data-revealed", false);
   //cardElement.innerHTML = emoji;
 
-  cardElement.addEventListener('click', () => {
-    if (awaitngEndOfMove) {
+  cardElement.addEventListener("click", () => {
+    const revealed = cardElement.getAttribute("data-revealed");
+    if (awaitngEndOfMove || revealed === true || cardElement === activeCard) {
       return;
     }
     cardElement.innerHTML = emoji;
 
     if (!activeCard) {
       activeCard = cardElement;
+      return;
     }
-   
-  })
+
+    console.log(activeCard);
+    const emojiToMatch = activeCard.getAttribute("data-emoji");
+
+    if (
+      emojiToMatch.codePointAt(0).toString(16) ==
+      emoji.codePointAt(0).toString(16)
+    ) {
+      // reset data attribute to true
+      activeCard.dataset.dataRevealed = true;
+      cardElement.dataset.dataRevealed = true;
+      activeCard = null;
+      awaitngEndOfMove = false;
+      revealedCards += 2;
+
+      if (revealedCards === cardsCount) {
+        alert("You won!");
+      }
+      return;
+    }
+    //console.log(emoji.codePointAt(0).toString(16) === emojiToMatch.codePointAt(0).toString(16))
+
+    awaitngEndOfMove = true;
+
+    setTimeout(() => {
+      cardElement.innerHTML = null;
+      activeCard.innerHTML = null;
+
+      awaitngEndOfMove = false;
+      activeCard = null;
+    }, 1000);
+  });
 
   return cardElement;
-}
-
+};
 
 for (let i = 0; i < cardsCount; i++) {
-  const randomIdx = Math.floor(Math.random() * cardsPicksList.length)
+  const randomIdx = Math.floor(Math.random() * cardsPicksList.length);
   const emoji = cardsPicksList[randomIdx];
   cardsPicksList.splice(randomIdx, 1);
   const card = buildCard(emoji);
   cards.append(card);
-  cards.style.gridTemplateColumns = `repeat(${cardsCount / 6}, 1fr)`
+  cards.style.gridTemplateColumns = `repeat(${cardsCount / 6}, 1fr)`;
 }
-
