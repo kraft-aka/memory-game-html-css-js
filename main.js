@@ -95,7 +95,6 @@ const startGame = (level) => {
   const cardsCountLevel = cardsList.length;
 
   for (let i = 0; i < cardsCountLevel; i++) {
-
     const randomIdx = Math.floor(Math.random() * cardsList.length);
     const emoji = cardsList[randomIdx];
 
@@ -116,6 +115,16 @@ const startGame = (level) => {
   }
 };
 
-//btnEasy.addEventListener("click", startGame(2));
-btnMedium.addEventListener('click', startGame(8))
-//btnHard.addEventListener('click', startGame(18))
+// Select the level 
+btnEasy.addEventListener("click", () => {
+  cards.innerHTML = "";
+  startGame(2);
+});
+btnMedium.addEventListener("click", () => {
+  cards.innerHTML = "";
+  startGame(8);
+});
+btnHard.addEventListener("click", () => {
+  cards.innerHTML = "";
+  startGame(18);
+});
