@@ -19,15 +19,16 @@ const emojis = [
   "🦪",
 ];
 
+console.log(emojis.length);
 // buttons
-const btnEasy = document.querySelector(".btn easy-level");
-const btnMedium = document.querySelector(".btn medium-level");
-const btnHard = document.querySelector(".btn hard-level");
+const btnEasy = document.querySelector(".easy-level");
+const btnMedium = document.querySelector(".medium-level");
+const btnHard = document.querySelector(".hard-level");
 
 const container = document.querySelector(".container");
 const cards = document.querySelector(".cards");
 const cardsPicksList = [...emojis, ...emojis];
-const cardsCount = cardsPicksList.length;
+//const cardsCount = cardsPicksList.length;
 //console.log(cardsCount)
 
 let gameOn = false;
@@ -35,12 +36,11 @@ let activeCard = null;
 let revealedCards = 0;
 let awaitngEndOfMove = false;
 
-const buildCard = (emoji) => {
+const buildCard = (emoji, count) => {
   const cardElement = document.createElement("div");
   cardElement.classList.add("card");
   cardElement.setAttribute("data-emoji", emoji);
   cardElement.setAttribute("data-revealed", false);
-  //cardElement.innerHTML = emoji;
 
   cardElement.addEventListener("click", () => {
     const revealed = cardElement.getAttribute("data-revealed");
@@ -68,7 +68,7 @@ const buildCard = (emoji) => {
       awaitngEndOfMove = false;
       revealedCards += 2;
 
-      if (revealedCards === cardsCount) {
+      if (revealedCards === count) {
         alert("You won!");
       }
       return;
@@ -89,11 +89,33 @@ const buildCard = (emoji) => {
   return cardElement;
 };
 
-for (let i = 0; i < cardsCount; i++) {
-  const randomIdx = Math.floor(Math.random() * cardsPicksList.length);
-  const emoji = cardsPicksList[randomIdx];
-  cardsPicksList.splice(randomIdx, 1);
-  const card = buildCard(emoji);
-  cards.append(card);
-  cards.style.gridTemplateColumns = `repeat(${cardsCount / 6}, 1fr)`;
-}
+const startGame = (level) => {
+  const cardsOfEmojies = emojis.slice(0, level);
+  const cardsList = [...cardsOfEmojies, ...cardsOfEmojies];
+  const cardsCountLevel = cardsList.length;
+
+  for (let i = 0; i < cardsCountLevel; i++) {
+
+    const randomIdx = Math.floor(Math.random() * cardsList.length);
+    const emoji = cardsList[randomIdx];
+
+    cardsList.splice(randomIdx, 1);
+
+    const card = buildCard(emoji, cardsCountLevel);
+    cards.append(card);
+
+    if (level == 2) {
+      cards.style.gridTemplateColumns = "repeat(2, 1fr)";
+    }
+    if (level == 8) {
+      cards.style.gridTemplateColumns = "repeat(4, 1fr)";
+    }
+    if (level == 18) {
+      cards.style.gridTemplateColumns = "repeat(6, 1fr)";
+    }
+  }
+};
+
+//btnEasy.addEventListener("click", startGame(2));
+btnMedium.addEventListener('click', startGame(8))
+//btnHard.addEventListener('click', startGame(18))
