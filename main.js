@@ -19,23 +19,23 @@ const emojis = [
   "🦪",
 ];
 
-console.log(emojis.length);
+// console.log(emojis.length);
+
 // buttons
 const btnEasy = document.querySelector(".easy-level");
 const btnMedium = document.querySelector(".medium-level");
 const btnHard = document.querySelector(".hard-level");
+const restartBtn = document.querySelector(".btn-cta");
 
-const container = document.querySelector(".container");
 const cards = document.querySelector(".cards");
 const cardsPicksList = [...emojis, ...emojis];
-//const cardsCount = cardsPicksList.length;
-//console.log(cardsCount)
+let currentLevel = null;
 
-let gameOn = false;
 let activeCard = null;
 let revealedCards = 0;
 let awaitngEndOfMove = false;
 
+// creates a card
 const buildCard = (emoji, count) => {
   const cardElement = document.createElement("div");
   cardElement.classList.add("card");
@@ -89,10 +89,13 @@ const buildCard = (emoji, count) => {
   return cardElement;
 };
 
+// starts the game
 const startGame = (level) => {
+  currentLevel = level;
   const cardsOfEmojies = emojis.slice(0, level);
   const cardsList = [...cardsOfEmojies, ...cardsOfEmojies];
   const cardsCountLevel = cardsList.length;
+  console.log(currentLevel);
 
   for (let i = 0; i < cardsCountLevel; i++) {
     const randomIdx = Math.floor(Math.random() * cardsList.length);
@@ -103,6 +106,7 @@ const startGame = (level) => {
     const card = buildCard(emoji, cardsCountLevel);
     cards.append(card);
 
+    // sets the grid for styling
     if (level == 2) {
       cards.style.gridTemplateColumns = "repeat(2, 1fr)";
     }
@@ -115,7 +119,7 @@ const startGame = (level) => {
   }
 };
 
-// Select the level 
+// Select the level
 btnEasy.addEventListener("click", () => {
   cards.innerHTML = "";
   startGame(2);
@@ -127,4 +131,18 @@ btnMedium.addEventListener("click", () => {
 btnHard.addEventListener("click", () => {
   cards.innerHTML = "";
   startGame(18);
+});
+
+// refresh button
+restartBtn.addEventListener("click", () => {
+  if (currentLevel == 2) {
+    cards.innerHTML = "";
+    startGame(2);
+  } else if (currentLevel == 8) {
+    cards.innerHTML = "";
+    startGame(8);
+  } else {
+    cards.innerHTML = "";
+    startGame(18);
+  }
 });
