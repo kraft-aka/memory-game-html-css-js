@@ -47,6 +47,7 @@ const buildCard = (emoji, count) => {
     if (awaitngEndOfMove || revealed === true || cardElement === activeCard) {
       return;
     }
+    cardElement.style.transform = 'rotateY(180deg)'
     cardElement.innerHTML = emoji;
 
     if (!activeCard) {
