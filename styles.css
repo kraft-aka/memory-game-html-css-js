@@ -70,6 +70,7 @@ body {
   background-color: var(--bgColorMain);
   line-height: 1.5;
   min-height: 100vh;
+  position: relative;
 }
 
 /* make images easier to work with */
@@ -268,4 +269,41 @@ button {
 
 .btn-cta {
   margin-top: 5rem;
+}
+
+/* styles for modal */
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 30%;
+  background-color: hsl(var(--clr-light));
+  flex-wrap: nowrap;
+  position: fixed;
+  top: 35%;
+  left: 35%;
+  border-radius: 1rem;
+}
+
+
+.modal-text{
+  padding: 1rem;
+  color: hsl(var(--clr-dark));
+  font-weight: 700;
+}
+
+.hide {
+  display: none;
 }

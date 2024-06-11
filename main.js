@@ -28,7 +28,7 @@ const btnHard = document.querySelector(".hard-level");
 const restartBtn = document.querySelector(".btn-cta");
 
 const cards = document.querySelector(".cards");
-const cardsPicksList = [...emojis, ...emojis];
+//const cardsPicksList = [...emojis, ...emojis];
 let currentLevel = null;
 
 let activeCard = null;
@@ -69,7 +69,7 @@ const buildCard = (emoji, count) => {
       revealedCards += 2;
 
       if (revealedCards === count) {
-        alert("You won!");
+        modal();
       }
       return;
     }
@@ -135,14 +135,47 @@ btnHard.addEventListener("click", () => {
 
 // refresh button
 restartBtn.addEventListener("click", () => {
-  if (currentLevel == 2) {
-    cards.innerHTML = "";
-    startGame(2);
-  } else if (currentLevel == 8) {
-    cards.innerHTML = "";
-    startGame(8);
-  } else {
-    cards.innerHTML = "";
-    startGame(18);
-  }
+  // if (currentLevel == 2) {
+  //   cards.innerHTML = "";
+  //   startGame(2);
+  // } else if (currentLevel == 8) {
+  //   cards.innerHTML = "";
+  //   startGame(8);
+  // } else {
+  //   cards.innerHTML = "";
+  //   startGame(18);
+  // }
+  window.location.reload();
 });
+
+// Modal
+
+const modal = () => {
+  const modal = document.createElement("div");
+  modal.classList.add("modal");
+
+  const modalContent = document.createElement("div");
+  modalContent.classList.add("modal-content");
+
+  const p = document.createElement("p");
+  p.classList.add("modal-text");
+  p.innerText = "Congratulation! You won this game! 👍";
+
+  const closeBtn = document.createElement("button");
+  closeBtn.classList.add("btn");
+  closeBtn.innerText = "close";
+
+  closeBtn.addEventListener("click", () => {
+    modal.classList.add("hide");
+  });
+  window.addEventListener("click", (e) => {
+    if (e.target == modal) {
+      modal.style.display = "none";
+    }
+  });
+
+  modalContent.appendChild(p);
+  modalContent.appendChild(closeBtn);
+  modal.appendChild(modalContent);
+  document.body.appendChild(modal);
+};
