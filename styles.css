@@ -267,6 +267,14 @@ button {
   border-radius: 0.5rem;
   text-transform: uppercase;
   cursor: pointer;
+  transition: all .4s ease-in-out;
+}
+
+button:hover,
+button:focus {
+  transform: scale(1.01);
+  font-weight: 700;
+  box-shadow: 3px 15px 15px rgba(0, 0, 0, 0.25);
 }
 
 .btn-cta {
