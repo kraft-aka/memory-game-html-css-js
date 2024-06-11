@@ -71,6 +71,8 @@ body {
   line-height: 1.5;
   min-height: 100vh;
   position: relative;
+  animation-name: animateMemo;
+  animation-duration: 4s;
 }
 
 /* make images easier to work with */
@@ -280,6 +282,9 @@ button {
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+ animation-name: animateModal;
+ animation-duration: 3s;
 }
 
 .modal-content {
@@ -306,4 +311,21 @@ button {
 
 .hide {
   display: none;
+}
+
+
+/* @keyframes animateMemo {
+  from {
+    top: 300px; opacity: 0;
+  } to {
+    top:0; opacity: 1;
+  }
+} */
+
+@keyframes animateModal {
+  from {
+    opacity: 0;
+  } to {
+    opacity: 1;
+  }
 }
