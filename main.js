@@ -1,3 +1,4 @@
+const jsConfetti = new JSConfetti()
 const emojis = [
   "🐼",
   "🐤",
@@ -20,6 +21,7 @@ const emojis = [
 ];
 
 // console.log(emojis.length);
+
 
 // buttons
 const btnEasy = document.querySelector(".easy-level");
@@ -70,7 +72,10 @@ const buildCard = (emoji, count) => {
       revealedCards += 2;
 
       if (revealedCards === count) {
-        modal();
+        jsConfetti.addConfetti()
+        setTimeout(()=> {
+          modal()
+        }, 1500) ;
       }
       return;
     }
@@ -161,7 +166,7 @@ const modal = () => {
 
   const p = document.createElement("p");
   p.classList.add("modal-text");
-  p.innerText = "Congratulation! You won this game! 👍";
+  p.innerText = "Congratulation! You won this game! 👍 Please try other levels.";
 
   const closeBtn = document.createElement("button");
   closeBtn.classList.add("btn");
