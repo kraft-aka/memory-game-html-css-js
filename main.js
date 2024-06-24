@@ -40,11 +40,11 @@ const buildCard = (emoji, count) => {
   const cardElement = document.createElement("div");
   cardElement.classList.add("card");
   cardElement.setAttribute("data-emoji", emoji);
-  cardElement.setAttribute("data-revealed", false);
+  cardElement.setAttribute("data-revealed", 'false');
 
   cardElement.addEventListener("click", () => {
     const revealed = cardElement.getAttribute("data-revealed");
-    if (awaitngEndOfMove || revealed === true || cardElement === activeCard) {
+    if (awaitngEndOfMove || revealed === 'true' || cardElement === activeCard) {
       return;
     }
     cardElement.style.transform = 'rotateY(180deg)'
@@ -63,8 +63,8 @@ const buildCard = (emoji, count) => {
       emoji.codePointAt(0).toString(16)
     ) {
       // reset data attribute to true
-      activeCard.dataset.dataRevealed = true;
-      cardElement.dataset.dataRevealed = true;
+      activeCard.dataset.dataRevealed = 'true';
+      cardElement.dataset.dataRevealed = 'true';
       activeCard = null;
       awaitngEndOfMove = false;
       revealedCards += 2;
@@ -96,6 +96,7 @@ const startGame = (level) => {
   const cardsOfEmojies = emojis.slice(0, level);
   const cardsList = [...cardsOfEmojies, ...cardsOfEmojies];
   const cardsCountLevel = cardsList.length;
+  revealedCards = 0;
   console.log(currentLevel);
 
   for (let i = 0; i < cardsCountLevel; i++) {
